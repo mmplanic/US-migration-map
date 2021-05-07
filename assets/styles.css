@@ -1,0 +1,161 @@
+:root{
+    --color-red: #de1b23;
+    --color-black: #222222;
+    --color-blue: #132042;
+    /* --color-shade: #f1f1f1;
+    --color-white: #ffffff;
+    --color-dark: #272727;
+    --color-light: #91bdf5;
+    --color-active: #ef686e; */
+
+    --font-size-xxs: 14px;
+    --font-size-xs: 20px;
+    --font-size-sm: 40px;
+    --font-size-md: 50px;
+    --font-size-lg: 70px;
+    --font-size-xl: 90px;
+
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-bold: 700;
+    --font-weight-black: 900;
+}
+
+/* 
+@font-face {
+    font-family: 'Bitter';
+    src: url('./fonts/Bitter-Light.ttf') format('OpenType');
+    font-display: swap;
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Bitter';
+    src: url('./fonts/Bitter-Regular.ttf') format('OpenType');
+    font-display: swap;
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'Bitter';
+    src: url('./fonts/Bitter-Bold.ttf') format('OpenType');
+    font-display: swap;
+    font-weight: 700;
+}
+@font-face {
+    font-family: 'Bitter';
+    src: url('./fonts/Bitter-Black.ttf') format('OpenType');
+    font-display: swap;
+    font-weight: 900;
+} */
+
+html,body{
+    /* background-color: var(--color-black); */
+    margin: 0px;
+    padding: 0px;
+    /* font-family: 'Bitter', serif; */
+    text-align: center;
+}
+.map-page{
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+
+.filter-section select{
+    border: 1px solid #ccc;
+    height: 40px;
+    margin: 2%;
+    width: 35%;
+    text-align-last: center;
+    font-weight: 600;
+}
+
+.map-section{
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.map-svg{
+    position: relative;
+    transform: scale(1);
+    top: 0px;
+    left: 0px;
+    transition: all 0.5s;
+}
+.map-svg.zoom{
+    transform: scale(2.5);
+    transition: all 0.5s ease;
+}
+
+path{
+    fill: lightgray;
+    stroke: black;
+    stroke-width: 2px;
+    transition: fill 0.3s ease-in-out;
+}
+
+path:hover{
+    fill: gray;
+}
+
+.ca, .tx, .az, .nv, .wa, .or{
+    fill: var(--color-red);
+    cursor: pointer;
+}
+
+.ca:hover, .tx:hover, .az:hover, .nv:hover, .wa:hover, .or:hover{
+    fill: var(--color-blue);
+    cursor: pointer;
+}
+
+.map-dialog{
+    position: absolute;
+    right: -60%;
+    transition: right 0.5s ease-in;
+    top: 0;
+    background-color: white;
+    max-width: 50%;
+    border: 2px solid black;
+}
+
+.map-dialog.active{
+    right: 0;
+    transition: right  0.5s ease-in;
+}
+
+.embed-section{
+
+}
+
+.embed-btn{
+    
+}
+
+.embed-code{
+    display: none;
+    width: 80%;
+}
+
+
+
+
+@media (max-width: 949px) {
+    .map-page{
+        width: 80%;
+    }
+}
+
+@media (max-width: 725px) {
+    .map-page{
+        width: 90%;
+    }
+    .map-section{
+        width: 100%;
+    }
+    .filter-section select{
+        width: 96%;
+    }
+}
