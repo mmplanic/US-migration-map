@@ -89,17 +89,26 @@ function setYear(year) {
     mapStatesText.forEach((state, i) => {
         value = data[year][i] / 1000;
         value = value.toFixed(2);
+        mapEnabledStates[i].style = `opacity: ${(value/100).toFixed(1)};`
         value = value + "K";
         state.textContent = value;
-        console.log(value);
+        
+        
     })
+}
+
+function updateBox(year) {
+    if (zoomedState === 'none') return;
+    var index = states.findIndex(el => el[0] === zoomedState);
+    var state = states[state][1];
+    mapDialogBox.innerText = `${data[year][index]} people moved to ${state} in ${year}`;
 }
 
 function onSelect(e){
     var year = yearSelect.value;
 
     var value = e.target.classList[0] || e.target.value || 'none';
-    if (value === zoomedState) {
+    if (value === zoomedState || value.substring(0,2) === zoomedState) {
         zoomOut();
         zoomedState = 'none';
         return;
@@ -127,7 +136,7 @@ function onSelect(e){
             last.classList.remove('state-active');
         }
         zoomedState = value;
-        e.target.classList.add('state-active');
+        mapEnabledStates[index].classList.add('state-active');
     }
 
     function zoomOut() {
@@ -145,7 +154,7 @@ function onSelect(e){
         zoomOut();
     }
     else {   
-        action(value, states[stateIndex][1], stateIndex);
+        action( states[stateIndex][0], states[stateIndex][1], stateIndex);
     }
 }
 
@@ -154,8 +163,27 @@ function showEmbedCode(e) {
     e.target.disabled = true;
 }
 
+let lastHovered = 'none'
+
+function onHover(e) {
+    let current = e.target.classList[0]?e.target.classList[0]:"none";
+    if (current.length === 6) {
+        current = current.substring(0, 2);
+    }
+    if (lastHovered !== current) {
+        let lastIndex = states.findIndex(el => el[0] === lastHovered);
+        let currentIndex = states.findIndex(el => el[0] === current);
+        if(lastIndex>-1)mapEnabledStates[lastIndex].style.fill = "";
+        if (currentIndex > -1) { mapEnabledStates[currentIndex].style.fill = "blue"; }
+        lastHovered = current;
+
+    }
+}
 map.addEventListener('click', onSelect);
+map.addEventListener('mouseover', e => { onHover(e); })
+map.addEventListener('mouseleave', e=>{lastHovered='none'})
+
 stateSelect.addEventListener('change', onSelect);
-yearSelect.addEventListener('change', e => { setYear(e.target.value); });
+yearSelect.addEventListener('change', e => { setYear(e.target.value); updateBox(e.target.value) });
 embedBtn.addEventListener('click', showEmbedCode);
 

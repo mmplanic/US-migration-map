@@ -83,10 +83,10 @@ path:hover{
 }
 /* .ca:hover,  */
 /* .tx:hover, .az:hover, .nv:hover, .wa:hover, .or:hover */
-.state-enabled:hover{
+/* .state-enabled:hover{
     fill: var(--color-blue);
     cursor: pointer;
-}
+} */
 
 .state-active{
     fill: var(--color-blue);
