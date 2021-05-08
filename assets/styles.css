@@ -21,31 +21,6 @@
     --font-weight-black: 900;
 }
 
-/* 
-@font-face {
-    font-family: 'Bitter';
-    src: url('./fonts/Bitter-Light.ttf') format('OpenType');
-    font-display: swap;
-    font-weight: 300;
-}
-@font-face {
-    font-family: 'Bitter';
-    src: url('./fonts/Bitter-Regular.ttf') format('OpenType');
-    font-display: swap;
-    font-weight: 400;
-}
-@font-face {
-    font-family: 'Bitter';
-    src: url('./fonts/Bitter-Bold.ttf') format('OpenType');
-    font-display: swap;
-    font-weight: 700;
-}
-@font-face {
-    font-family: 'Bitter';
-    src: url('./fonts/Bitter-Black.ttf') format('OpenType');
-    font-display: swap;
-    font-weight: 900;
-} */
 
 html,body{
     /* background-color: var(--color-black); */
@@ -59,8 +34,6 @@ html,body{
     max-width: 1200px;
     margin: 0 auto;
 }
-
-
 
 .filter-section select{
     border: 1px solid #ccc;
@@ -101,13 +74,28 @@ path:hover{
     fill: gray;
 }
 
-.ca, .tx, .az, .nv, .wa, .or{
+/* .ca, */
+/* .tx, .az, .nv, .wa, .or */
+.state-enabled{
     fill: var(--color-red);
+    cursor: pointer;
+    position: relative;
+}
+/* .ca:hover,  */
+/* .tx:hover, .az:hover, .nv:hover, .wa:hover, .or:hover */
+.state-enabled:hover{
+    fill: var(--color-blue);
     cursor: pointer;
 }
 
-.ca:hover, .tx:hover, .az:hover, .nv:hover, .wa:hover, .or:hover{
+.state-active{
     fill: var(--color-blue);
+}
+
+.map-svg text{
+    display: block;
+    fill: black;
+    font-size: 20px;
     cursor: pointer;
 }
 

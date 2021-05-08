@@ -15,44 +15,49 @@ var data = {
     2011: [58_992, 49_635, 38_421, 40_114, 34_214],
     2010: [68_959, 47_164, 39_468, 35_472, 34_190],
 }
-//total
 
-var totalFor10Years = 2_544_669/10;
+var states = [ // states must be in same order as they are in data years
+    ['tx', 'Texas'],
+    ['az', 'Arizona'],
+    ['wa', 'Washington'],
+    ['nv', 'Nevada'],
+    ['or', 'Oregon']
+];
 
-//regions
-
-var texas10Years = 687_626 / totalFor10Years/10;
-var arizona10Years = 553_957 / totalFor10Years/10;
-var nevada10years = 452_557 / totalFor10Years/10;
-var washington10Years = 468_204/ totalFor10Years/10;
-var oregon10Years = 382_325 / totalFor10Years/10;
 
 // -- ELEMENTS -- //
-
-//  -- utils --//
-
-
-// -- INIT -- //
-
-
-//regions
 
 var yearSelect = document.getElementsByClassName('year-select')[0];
 var stateSelect = document.getElementsByClassName('state-select')[0];
 
-
 var mapSection = document.getElementsByClassName('map-section')[0];
-var map = document.getElementsByClassName('map-svg')[0];
+var map = mapSection.getElementsByClassName('map-svg')[0];
 
-var mapDialogBox = document.getElementsByClassName('map-dialog')[0];
+var mapDialogBox = mapSection.getElementsByClassName('map-dialog')[0];
+
+var mapStatesText = [];
+var mapEnabledStates = states.map(el => {
+    var element = mapSection.getElementsByClassName(el[0])[0];
+    var elementBBox = element.getBBox();
+    var text = mapSection.getElementsByClassName(el[0]+'-txt')[0];
+    
+    text.setAttribute('x', elementBBox.x + elementBBox.width * 0.3);
+    text.setAttribute('y', elementBBox.y + elementBBox.height * 0.5);
+
+    mapStatesText.push(text);
+    element.classList.add('state-enabled');
+    return element;
+});
 
 
 var embedBtn = document.getElementsByClassName('embed-btn')[0];
 var embedCodeEl = document.getElementsByClassName('embed-code')[0];
 
+
+// -- INIT -- //
+
 var latestYear = 0;
 for (const year in data) {
-    //const element = data[year];
 
     const option = document.createElement('option');
     option.value = year;
@@ -67,29 +72,41 @@ for (const year in data) {
     }
 }
 yearSelect.value = latestYear;
+setYear(latestYear);
 
+var embedCode = `<iframe src="${window.location.href}" frameborder="0" scrolling="no" class="unvlmap-iframe" allowfullscreen></iframe>`;
+embedCodeEl.innerText = embedCode;
 
 var zoomedState = 'none';
+
+///////////////////////////////////////////
+
+
+function setYear(year) {
+    var value;
+    console.log(mapStatesText);
+    console.log(year);
+    mapStatesText.forEach((state, i) => {
+        value = data[year][i] / 1000;
+        value = value.toFixed(2);
+        value = value + "K";
+        state.textContent = value;
+        console.log(value);
+    })
+}
+
 function onSelect(e){
     var year = yearSelect.value;
 
-    var value = e.target.className.baseVal || e.target.value || 'none';
-
+    var value = e.target.classList[0] || e.target.value || 'none';
     if (value === zoomedState) {
         zoomOut();
         zoomedState = 'none';
         return;
     }
-    var mapBox = map.getBBox();
-    var stateBox = document.getElementsByClassName(value)[0].getBBox();
-     console.log(stateBox);
 
-    // console.log(mapBox);
-    // var ratio = mapSection.offsetWidth / mapBox.width;
-    // var top = (mapSection.offsetHeight/2 - (stateBox.y + stateBox.height/2)*ratio);
-    // var left = (mapSection.offsetWidth/2 - (stateBox.x + stateBox.width/2)*ratio);
-    
-    var ratio = mapSection.offsetWidth / mapBox.width;
+    var mapBox = map.getBBox();
+    var stateBox = document.getElementsByClassName(value)[0].getBBox();    
 
     var top = (stateBox.y + stateBox.height / 2) / mapBox.height;
     var left = (stateBox.x + stateBox.width / 2) / mapBox.width;
@@ -98,7 +115,6 @@ function onSelect(e){
     top *= -1;
     left *= -1;
 
-    
     function action(value, state, index) {
         stateSelect.value = value;
         mapDialogBox.innerText = `${data[year][index]} people moved to ${state} in ${year}`;
@@ -106,65 +122,40 @@ function onSelect(e){
         map.classList.add('zoom');
         map.style.left = left;
         map.style.top = top;
+        let last = document.getElementsByClassName(zoomedState)[0];
+        if (last !== undefined) {
+            last.classList.remove('state-active');
+        }
         zoomedState = value;
+        e.target.classList.add('state-active');
     }
+
     function zoomOut() {
         mapDialogBox.classList.remove('active');
         map.style = "";
         map.classList.remove('zoom');
+        let last = document.getElementsByClassName(zoomedState)[0];
+        if (last !== undefined) {
+            last.classList.remove('state-active');
+        }
     }
-    switch (value) {
-        case 'tx': {
-            action(value, 'Texas',0);
-        }
-            break;
-        case 'az': {
-            action(value, 'Arizona',1);
-        }
-            break;
-        case 'wa':{
-            action(value, 'Washington',2);
-        }
-        break;
-        case 'nv':{
-            action(value, 'Nevada',3);
-        }
-        break;
-        case 'or':{
-            action(value, 'Oregon',4);
-        }
-        break;
 
-        default: {
-            zoomOut();
-            //action(value, 'Oregon',4);
-        }
-            break;
+    let stateIndex = states.findIndex(el => el[0] === value || el[0]+'-txt' === value);
+    if (stateIndex < 0) {
+        zoomOut();
+    }
+    else {   
+        action(value, states[stateIndex][1], stateIndex);
     }
 }
-
-map.addEventListener('click', onSelect);
-stateSelect.addEventListener('change', onSelect);
 
 function showEmbedCode(e) {
     embedCodeEl.style.display = 'inline-block';
     e.target.disabled = true;
 }
 
+map.addEventListener('click', onSelect);
+stateSelect.addEventListener('change', onSelect);
+yearSelect.addEventListener('change', e => { setYear(e.target.value); });
 embedBtn.addEventListener('click', showEmbedCode);
-
-var embedCode = `<iframe src="${window.location.href}" frameborder="0" scrolling="no" class="unvlmap-iframe" allowfullscreen></iframe>`;
-embedCodeEl.innerText = embedCode;
-// --LOGIC--//
-
-focusedState = 'none';
-
-
-
-console.log(window.location.href);
-
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
 
