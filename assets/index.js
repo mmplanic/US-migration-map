@@ -104,13 +104,14 @@ function updateBox(year) {
     mapDialogBox.innerText = `${data[year][index]} people moved to ${state} in ${year}`;
 }
 
-function onSelect(e){
+function onSelect(selected){
     var year = yearSelect.value;
 
-    var value = e.target.classList[0] || e.target.value || 'none';
-    if (value === zoomedState || value.substring(0,2) === zoomedState) {
+    var value = selected || 'none';
+    if (value === zoomedState || value.substring(0,2) === zoomedState || value === 'none') {
         zoomOut();
         zoomedState = 'none';
+        stateSelect.selectedIndex = 0;
         return;
     }
 
@@ -179,11 +180,11 @@ function onHover(e) {
 
     }
 }
-map.addEventListener('click', onSelect);
+map.addEventListener('click', e => { onSelect(e.target.classList[0]) });
 map.addEventListener('mouseover', e => { onHover(e); })
 map.addEventListener('mouseleave', e=>{lastHovered='none'})
 
-stateSelect.addEventListener('change', onSelect);
+stateSelect.addEventListener('change', e => { onSelect(e.target.value); });
 yearSelect.addEventListener('change', e => { setYear(e.target.value); updateBox(e.target.value) });
 embedBtn.addEventListener('click', showEmbedCode);
 

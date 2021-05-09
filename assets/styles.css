@@ -59,7 +59,7 @@ html,body{
     transition: all 0.5s;
 }
 .map-svg.zoom{
-    transform: scale(2.5);
+    transform: scale(2.3);
     transition: all 0.5s ease;
 }
 
