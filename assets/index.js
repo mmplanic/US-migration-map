@@ -3,7 +3,7 @@
 var data = {
 //  year : [0]-texas, [1]-arizona, [2]-washington, [3]-nevada, [4]-oregon
    
-    2020: [82_235, 59_713, 46_791, 47_322, 37_927], // estimated
+    2020: [68_762, 55_396, 46_820, 45_256, 38_232], // estimated
     2019: [82_235, 59_713, 46_791, 47_322, 37_927],
     2018: [86_164, 68_516, 55_467, 50_707, 43_058],
     2017: [63_174, 59_233, 52_484, 47_513, 50_109],
@@ -74,7 +74,7 @@ for (const year in data) {
 yearSelect.value = latestYear;
 setYear(latestYear);
 
-var embedCode = `<iframe src="${window.location.href}" frameborder="0" scrolling="no" class="unvlmap-iframe" allowfullscreen></iframe>`;
+var embedCode = `<iframe src="${window.location.href}" class="" ></iframe>`;
 embedCodeEl.innerText = embedCode;
 
 var zoomedState = 'none';
