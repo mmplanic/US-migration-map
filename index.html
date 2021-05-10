@@ -11,9 +11,10 @@
 
 <body>
     <div class="map-page" >
-        <h1>California Migration Map 2010 to 2020</h1>
-        <h2>How many Californians moved to Texas, Arizona, Nevada, Washington and Oregon every year?</h2>
-
+        <div class="header-section">
+            <h1>California Migration Map 2010 to 2020</h1>
+            <h2>How many Californians moved to Texas, Arizona, Nevada, Washington and Oregon every year?</h2>
+        </div>
 
         <div class="filter-section">
             <select name="year" class="year-select">
@@ -194,6 +195,9 @@
                     <text class="or-txt"></text>
             </svg>
             <div class="map-dialog">
+                <h3 class="dialog-title"></h3>
+                <p class="dialog-message"></p>
+                <button class="close-btn"></button>
 
             </div>
         </div>
@@ -204,7 +208,7 @@
             <textarea readonly disabled class="embed-code"></textarea>
         </div>
 
-        <div class="footer">
+        <div class="footer-section">
             <p>Data courtesy of U.S. Census Bureau State-to-State Migration Flow reports 2010 to 2019.<br>
                 The figures for 2020 are estimates based on statistics.<br>
                 The interactive will be updated with the official figures for 2020 after they are published by the Census Bureau.<br>

@@ -34,6 +34,9 @@ var mapSection = document.getElementsByClassName('map-section')[0];
 var map = mapSection.getElementsByClassName('map-svg')[0];
 
 var mapDialogBox = mapSection.getElementsByClassName('map-dialog')[0];
+var dialogTitle = mapDialogBox.getElementsByClassName('dialog-title')[0];
+var dialogMessage = mapDialogBox.getElementsByClassName('dialog-message')[0];
+var dialogCloseBtn = mapDialogBox.getElementsByClassName('close-btn')[0];
 
 var mapStatesText = [];
 var mapEnabledStates = states.map(el => {
@@ -101,7 +104,8 @@ function updateBox(year) {
     if (zoomedState === 'none') return;
     var index = states.findIndex(el => el[0] === zoomedState);
     var state = states[state][1];
-    mapDialogBox.innerText = `${data[year][index]} people moved to ${state} in ${year}`;
+    dialogMessage.innerText = `${data[year][index]} people moved to ${state} in ${year}`;
+    dialogTitle.innerText = state;
 }
 
 function onSelect(selected){
@@ -127,7 +131,8 @@ function onSelect(selected){
 
     function action(value, state, index) {
         stateSelect.value = value;
-        mapDialogBox.innerText = `${data[year][index]} people moved to ${state} in ${year}`;
+        dialogMessage.innerText = `${data[year][index]} people moved to ${state} in ${year}`;
+        dialogTitle.innerText = state;
         mapDialogBox.classList.add('active');
         map.classList.add('zoom');
         map.style.left = left;
@@ -187,4 +192,6 @@ map.addEventListener('mouseleave', e=>{lastHovered='none'})
 stateSelect.addEventListener('change', e => { onSelect(e.target.value); });
 yearSelect.addEventListener('change', e => { setYear(e.target.value); updateBox(e.target.value) });
 embedBtn.addEventListener('click', showEmbedCode);
+
+dialogCloseBtn.addEventListener('click', _ => { onSelect('none');})
 

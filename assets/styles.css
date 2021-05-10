@@ -2,23 +2,8 @@
     --color-red: #de1b23;
     --color-black: #222222;
     --color-blue: #132042;
-    /* --color-shade: #f1f1f1;
-    --color-white: #ffffff;
-    --color-dark: #272727;
-    --color-light: #91bdf5;
-    --color-active: #ef686e; */
-
-    --font-size-xxs: 14px;
-    --font-size-xs: 20px;
-    --font-size-sm: 40px;
-    --font-size-md: 50px;
-    --font-size-lg: 70px;
-    --font-size-xl: 90px;
-
-    --font-weight-light: 300;
-    --font-weight-regular: 400;
-    --font-weight-bold: 700;
-    --font-weight-black: 900;
+    --color-theme: #007cba;
+    --color-shade: #bfc3c5;
 }
 
 
@@ -34,7 +19,18 @@ html,body{
     max-width: 1200px;
     margin: 0 auto;
     color: var(--color-blue);
-    background-color: rgb(185, 185, 185);
+    background-color: var(--color-shade);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.header-section{
+    background-color: var(--color-blue);
+    color: white;
+    padding: 20px 0;
+}
+
+.filter-section{
+    background-color: var(--color-red);
 }
 
 .filter-section select{
@@ -44,17 +40,19 @@ html,body{
     width: 35%;
     text-align-last: center;
     font-weight: 600;
+    border-radius: 6px;
+    
 }
 
 .map-section{
     position: relative;
     width: 80%;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 30px auto;
     margin-bottom: 30px;
     overflow: hidden;
-    border: 2px solid darkblue;
-    border-radius: 10px;
+    border: 2px dotted white;
+    box-sizing: border-box;
 }
 .map-svg{
     position: relative;
@@ -99,12 +97,17 @@ path:hover{
 
 .map-svg text{
     display: block;
-    fill: var(--color-blue);
+    color: black;
+    fill: var(--color-black);
     font-size: 20px;
     font-weight: 700;
     cursor: pointer;
-    stroke-width: 0.5px;
-    stroke: rgb(68, 0, 255);
+    stroke-width: 4px;
+    stroke: rgb(178, 175, 179);
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-opacity: 0.5;
+    paint-order: stroke fill;
 }
 
 .map-dialog{
@@ -115,6 +118,45 @@ path:hover{
     background-color: white;
     max-width: 50%;
     border: 2px solid black;
+    padding: 5px;
+}
+
+.close-btn{
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    top: 2px;
+    right: 2px;
+    width: 40px;
+    height: 40px;
+}
+
+.close-btn::after{
+    position: absolute;
+    content: "X";
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    top: 0px;
+    right: 0px;
+    font-weight: 800;
+    background-color: white;
+}
+
+.dialog-title{
+    background-color: var(--color-red);
+    color: white;
+    margin: 0;
+   padding: 15px;
+
+}
+.dialog-message{
+    font-size: 20px;
+
 }
 
 .map-dialog.active{
@@ -133,18 +175,40 @@ path:hover{
     margin-bottom: 30px;
     border-radius: 0px;
     cursor: pointer;
+    border-radius: 6px;
+    background-color: var(--color-red);
+    color: white;
+    border: none;
+}
+
+.embed-btn:disabled{
+    opacity: 0.7;
 }
 
 .embed-code{
     display: none;
     width: 80%;
+    resize: none;
+    height: 60px;
 }
 
-.footer p{
+.footer-section{
+    background-color: var(--color-black);
+    color: white;
+}
+
+.footer-section p{
     line-height: 1.5;
+    margin-bottom: 0px;
+    padding: 20px 0;
 }
 
-
+.footer-section a{
+    text-decoration: none;
+    color: var(--color-red);
+    font-size: 18px;
+    font-weight: 600;
+}
 
 
 @media (max-width: 949px) {
@@ -162,5 +226,9 @@ path:hover{
     }
     .filter-section select{
         width: 96%;
+    }
+    .dialog-message{
+        font-size: 14px;
+    
     }
 }
