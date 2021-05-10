@@ -117,8 +117,7 @@ function onSelect(selected){
     var value = selected || 'none';
     if (value === zoomedState || value.substring(0,2) === zoomedState || value === 'none') {
         zoomOut();
-        zoomedState = 'none';
-        stateSelect.selectedIndex = 0;
+        
         return;
     }
 
@@ -134,16 +133,17 @@ function onSelect(selected){
 
     function action(value, index) {
         stateSelect.value = value;
+        let last = document.getElementsByClassName(zoomedState)[0];
+        if (last !== undefined) {
+            last.classList.remove('state-active');
+        }
         zoomedState = value;
         updateBox(year);
         mapDialogBox.classList.add('active');
         map.classList.add('zoom');
         map.style.left = left;
         map.style.top = top;
-        let last = document.getElementsByClassName(zoomedState)[0];
-        if (last !== undefined) {
-            last.classList.remove('state-active');
-        }
+
         mapEnabledStates[index].classList.add('state-active');
     }
 
@@ -155,6 +155,8 @@ function onSelect(selected){
         if (last !== undefined) {
             last.classList.remove('state-active');
         }
+        zoomedState = 'none';
+        stateSelect.selectedIndex = 0;
     }
 
     let stateIndex = states.findIndex(el => el[0] === value || el[0]+'-txt' === value);

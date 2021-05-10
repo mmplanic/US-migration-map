@@ -104,6 +104,11 @@ path:hover{
     stroke-linejoin: miter;
     stroke-opacity: 0.5;
     paint-order: stroke fill;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 .map-dialog{
