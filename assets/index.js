@@ -52,7 +52,6 @@ var mapEnabledStates = states.map(el => {
     return element;
 });
 
-
 var embedBtn = document.getElementsByClassName('embed-btn')[0];
 var embedCodeEl = document.getElementsByClassName('embed-code')[0];
 
@@ -77,34 +76,38 @@ for (const year in data) {
 yearSelect.value = latestYear;
 setYear(latestYear);
 
-var embedCode = `<iframe src="${window.location.href}" class="" ></iframe>`;
+var embedCode = `<iframe src="${window.location.href}" class="migration-map"></iframe>`;
 embedCodeEl.innerText = embedCode;
 
 var zoomedState = 'none';
 
-///////////////////////////////////////////
 
+
+// -- Util -- //
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+////////// -- Logic -- /////////////
 
 function setYear(year) {
     var value;
-    console.log(mapStatesText);
-    console.log(year);
     mapStatesText.forEach((state, i) => {
         value = data[year][i] / 1000;
         value = value.toFixed(2);
         mapEnabledStates[i].style = `opacity: ${(value/100).toFixed(1)};`
         value = value + "K";
         state.textContent = value;
-        
-        
     })
 }
 
 function updateBox(year) {
     if (zoomedState === 'none') return;
     var index = states.findIndex(el => el[0] === zoomedState);
-    var state = states[state][1];
-    dialogMessage.innerText = `${data[year][index]} people moved to ${state} in ${year}`;
+    var state = states[index][1];
+    dialogMessage.innerText = `${numberWithCommas(data[year][index])} people moved to ${state} in ${(year > 2019) ?`${year} (estimated)`: year}`; // remove once 2020 is updated
     dialogTitle.innerText = state;
 }
 
@@ -131,8 +134,8 @@ function onSelect(selected){
 
     function action(value, state, index) {
         stateSelect.value = value;
-        dialogMessage.innerText = `${data[year][index]} people moved to ${state} in ${year}`;
-        dialogTitle.innerText = state;
+        zoomedState = value;
+        updateBox(year);
         mapDialogBox.classList.add('active');
         map.classList.add('zoom');
         map.style.left = left;
@@ -141,7 +144,6 @@ function onSelect(selected){
         if (last !== undefined) {
             last.classList.remove('state-active');
         }
-        zoomedState = value;
         mapEnabledStates[index].classList.add('state-active');
     }
 
@@ -186,8 +188,8 @@ function onHover(e) {
     }
 }
 map.addEventListener('click', e => { onSelect(e.target.classList[0]) });
-map.addEventListener('mouseover', e => { onHover(e); })
-map.addEventListener('mouseleave', e=>{lastHovered='none'})
+map.addEventListener('mouseover', e => { onHover(e); });
+map.addEventListener('mouseleave', e => { onHover(e); lastHovered = 'none';});
 
 stateSelect.addEventListener('change', e => { onSelect(e.target.value); });
 yearSelect.addEventListener('change', e => { setYear(e.target.value); updateBox(e.target.value) });

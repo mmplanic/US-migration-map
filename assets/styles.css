@@ -32,16 +32,23 @@ html,body{
 .filter-section{
     background-color: var(--color-red);
 }
+.filter-section-wrapper{
+    max-width: 800px;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
 
 .filter-section select{
     border: 1px solid #ccc;
     height: 40px;
-    margin: 2%;
-    width: 35%;
+    margin: 2% 0;
+    width: 45%;
     text-align-last: center;
     font-weight: 600;
     border-radius: 6px;
-    
+    cursor: pointer;
 }
 
 .map-section{
@@ -214,6 +221,9 @@ path:hover{
 @media (max-width: 949px) {
     .map-page{
         width: 80%;
+    }
+    .filter-section-wrapper{
+        display: block;
     }
 }
 
