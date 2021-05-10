@@ -170,7 +170,20 @@ function onSelect(selected){
 
 function showEmbedCode(e) {
     embedCodeEl.style.display = 'inline-block';
+    embedCodeEl.focus();
+    embedCodeEl.select();
+  
+    try {
+      var successful = document.execCommand('copy');
+        if (successful) {
+            e.target.innerText = "Copied to clipboard";
+      }
+      //console.log('Fallback: Copying text command was ' + msg);
+    } catch (err) {
+      console.error('Fallback: Oops, unable to copy', err);
+    }
     e.target.disabled = true;
+    embedCodeEl.disabled = true;
 }
 
 let lastHovered = 'none'
