@@ -78,7 +78,7 @@ path{
 }
 
 path:hover{
-    fill: gray;
+    fill: rgb(179, 173, 173);
 }
 
 .state-enabled{
@@ -114,7 +114,7 @@ path:hover{
 .map-dialog{
     position: absolute;
     right: -60%;
-    transition: right 0.5s ease-in;
+    transition: right 0.5s ease-out;
     top: 0;
     background-color: white;
     max-width: 50%;
