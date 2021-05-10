@@ -17,11 +17,11 @@ var data = {
 }
 
 var states = [ // states must be in same order as they are in data years
-    ['tx', 'Texas'],
-    ['az', 'Arizona'],
-    ['wa', 'Washington'],
-    ['nv', 'Nevada'],
-    ['or', 'Oregon']
+    ['tx', 'Texas'], //[0]
+    ['az', 'Arizona'], //[1]
+    ['wa', 'Washington'], //[2]
+    ['nv', 'Nevada'], //[3]
+    ['or', 'Oregon'] //[4]
 ];
 
 

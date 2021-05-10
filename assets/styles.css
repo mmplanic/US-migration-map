@@ -2,16 +2,13 @@
     --color-red: #de1b23;
     --color-black: #222222;
     --color-blue: #132042;
-    --color-theme: #007cba;
     --color-shade: #bfc3c5;
 }
 
 
 html,body{
-    /* background-color: var(--color-black); */
     margin: 0px;
     padding: 0px;
-    /* font-family: 'Bitter', serif; */
     text-align: center;
 }
 .map-page{
@@ -84,19 +81,11 @@ path:hover{
     fill: gray;
 }
 
-/* .ca, */
-/* .tx, .az, .nv, .wa, .or */
 .state-enabled{
     fill: var(--color-red);
     cursor: pointer;
     position: relative;
 }
-/* .ca:hover,  */
-/* .tx:hover, .az:hover, .nv:hover, .wa:hover, .or:hover */
-/* .state-enabled:hover{
-    fill: var(--color-blue);
-    cursor: pointer;
-} */
 
 .state-active{
     fill: var(--color-blue);
@@ -169,10 +158,6 @@ path:hover{
 .map-dialog.active{
     right: 0;
     transition: right  0.5s ease-in;
-}
-
-.embed-section{
-
 }
 
 .embed-btn{
