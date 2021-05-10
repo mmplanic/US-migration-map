@@ -132,7 +132,7 @@ function onSelect(selected){
     top *= -1;
     left *= -1;
 
-    function action(value, state, index) {
+    function action(value, index) {
         stateSelect.value = value;
         zoomedState = value;
         updateBox(year);
@@ -162,7 +162,7 @@ function onSelect(selected){
         zoomOut();
     }
     else {   
-        action( states[stateIndex][0], states[stateIndex][1], stateIndex);
+        action( states[stateIndex][0], stateIndex);
     }
 }
 
